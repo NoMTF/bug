@@ -1,0 +1,60 @@
+---
+description: bug — real bug-version generator for AI training and QA drills
+globs:
+alwaysApply: false
+---
+
+# bug — Real Bug-Version Generator
+
+When the user asks to **create a bug version**, **inject bugs**, **make a bug drill**, or **set up a QA kata**, use this tool.
+
+## Quick commands
+
+```bash
+# Safe mode — creates sibling directories, never touches the original
+python ~/.bug/scripts/make_bug_version.py <source> --profile messy --count 12
+
+# In-place — only for sandbox/examples/training directories
+python ~/.bug/scripts/inject_bug.py <sandbox> --count 3
+
+# Shorthand if bug is on PATH
+bug bug-version <source> --profile messy --count 12
+bug inject <sandbox> --bug comparison-flip
+```
+
+## Supported source languages
+
+Python · JS/TS · Go · Rust · Java · Kotlin · Swift · C# · C/C++ · Ruby · PHP
+
+## Profiles
+
+- `soft` — subtle logic regressions, safe for beginners
+- `messy` — real-world mix (default)
+- `chaos` — everything including crash-inducers
+
+## Key bug types
+
+| Type | Language | Effect |
+|------|----------|--------|
+| `nil-check-flip` | Go | Flips `err != nil` — swallows errors |
+| `unwrap-panic` | Rust | `unwrap_or(x)` → `unwrap()` — panics on None |
+| `equals-to-ref` | Java | `.equals()` → `==` — reference vs value |
+| `force-unwrap` | Swift | `?? x` → `!` — crashes on nil |
+| `comparison-flip` | all | `===` → `!==`, `<=` → `<` etc. |
+| `off-by-one` | all | loop bounds shift by 1 |
+| `missing-await` | JS/TS/C#/Rust | removes one `await` |
+| `sort-direction` | all | reverses sort order |
+| `shared-reference` | all | removes defensive copy |
+
+## Workflow
+
+1. Run `make_bug_version.py` against the clean source.
+2. Read `BUG_VERSION_MANIFEST.json` — it records every mutation (file, line, before/after).
+3. Present the bug-version to the solver; keep the manifest as the answer key.
+4. To reset: run the same command again (it rebuilds from the clean source).
+
+## Safety
+
+- **Never** modify the original source directory.
+- **Never** inject into production, auth, billing, or deployment code.
+- Always write a manifest so every change is auditable and reversible.

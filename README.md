@@ -279,6 +279,58 @@ python scripts/inject_bug.py <sandbox-target> [options]
 | `--marker-file <name>` | `.bug-sandbox` | 允许原地注入的标记文件。 |
 | `--report <path>` | `BUG_INJECTION_REPORT.json` | 注入报告路径。 |
 
+## IDE 一键接入
+
+安装完成后，三个主流 AI 编辑器均可直接使用，无需手动配置：
+
+### GitHub Copilot
+
+把 `.github/copilot-instructions.md` 复制到你项目的 `.github/` 目录，Copilot Chat 即可理解 `bug` 的所有指令。
+
+```bash
+cp ~/.bug/.github/copilot-instructions.md YOUR_PROJECT/.github/copilot-instructions.md
+```
+
+之后在 Copilot Chat 里直接说：
+
+```
+帮我把这个项目生成一个 bug 版本，用 messy 强度注入 12 个 bug
+```
+
+---
+
+### Continue.dev
+
+安装脚本会自动把 `/bug-version` 和 `/bug-inject` 写入 `~/.continue/config.json`。打开 Continue 侧边栏，输入 `/` 即可看到：
+
+| 命令 | 作用 |
+|------|------|
+| `/bug-version` | 复制当前项目并注入真实 bug |
+| `/bug-inject` | 对 sandbox 目录原地注入 |
+| `/bug-chaos` | chaos 强度，生成最难版本 |
+
+如果安装脚本没有自动写入（Continue 未初始化），把 `.continue/config.json` 里的 `customCommands` 块粘贴进你的 `~/.continue/config.json` 即可。
+
+---
+
+### Cursor
+
+安装脚本会把规则写入 `~/.cursor/rules/bug.mdc`，Cursor Agent 模式下全局生效。
+
+也可以把 `.cursor/rules/bug.mdc` 复制到任意项目的 `.cursor/rules/` 目录，只对该项目生效：
+
+```bash
+cp ~/.bug/.cursor/rules/bug.mdc YOUR_PROJECT/.cursor/rules/bug.mdc
+```
+
+在 Cursor Composer / Agent 里直接说：
+
+```
+用 bug 工具给这个项目生成一个 chaos 模式的 bug 版本，然后列出所有注入点
+```
+
+---
+
 ## Agent 接入
 
 ### Codex

@@ -1,0 +1,25 @@
+{
+  "customCommands": [
+    {
+      "name": "bug-version",
+      "description": "Copy the current project and inject real bugs for a bug-hunt drill",
+      "prompt": "Run this command in the terminal, then read BUG_VERSION_MANIFEST.json and summarise every injected bug with its file, line, and impact:\n\npython {ROOT}/.bug/scripts/make_bug_version.py . --profile messy --count 12\n\nIf the `bug` command is on PATH, you can also use:\n\nbug bug-version . --profile messy --count 12\n\nAfter it completes, open BUG_VERSION_MANIFEST.json and explain what broke and why each mutation would cause a test failure or runtime regression."
+    },
+    {
+      "name": "bug-inject",
+      "description": "Inject bugs into a sandbox directory in-place (training/examples only)",
+      "prompt": "Run this in the terminal:\n\npython {ROOT}/.bug/scripts/inject_bug.py {input} --profile messy --count 3\n\nThen read BUG_INJECTION_REPORT.json and describe every mutation: which file, which line, what changed, and how to reproduce the failure.\n\nReplace {input} with the target sandbox path the user provided."
+    },
+    {
+      "name": "bug-chaos",
+      "description": "Generate a maximum-difficulty bug version (chaos profile)",
+      "prompt": "Run in the terminal:\n\npython {ROOT}/.bug/scripts/make_bug_version.py . --profile chaos --count 20\n\nThen read BUG_VERSION_MANIFEST.json and create a structured bug-hunt challenge with:\n1. A list of changed files (no line numbers — keep it a puzzle)\n2. Reproduction steps for each bug\n3. A hidden answer key at the bottom under a <details> block"
+    }
+  ],
+  "contextProviders": [
+    {
+      "name": "file",
+      "params": {}
+    }
+  ]
+}
