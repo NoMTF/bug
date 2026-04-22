@@ -1,0 +1,82 @@
+{
+  "label": "INTENTIONAL_BUG_DRILL",
+  "created_at": "2026-04-22T15:39:46.028197+00:00",
+  "root": "C:\\bug\\examples\\multilang-sandbox",
+  "seed": 42,
+  "changes": [
+    {
+      "file": "C:\\bug\\examples\\multilang-sandbox\\helpers.rb",
+      "bug": "filter-leak",
+      "line": 6,
+      "before": "  tags.compact.uniq",
+      "after": "  tags.uniq",
+      "explanation": "Removed an implicit filtering step, allowing empty, nullish, or invalid values to leak downstream.",
+      "backup": "C:\\bug\\examples\\multilang-sandbox\\helpers.rb.bug-backup"
+    },
+    {
+      "file": "C:\\bug\\examples\\multilang-sandbox\\User.java",
+      "bug": "equals-to-ref",
+      "line": 6,
+      "before": "        return this.name.equals(other.name);",
+      "after": "        return this.name == other.name;",
+      "explanation": "Replaced `.equals(...)` with `==`, turning value comparison into reference comparison.",
+      "backup": "C:\\bug\\examples\\multilang-sandbox\\User.java.bug-backup"
+    },
+    {
+      "file": "C:\\bug\\examples\\multilang-sandbox\\math.go",
+      "bug": "config-drift",
+      "line": 33,
+      "before": "const Timeout = 1000",
+      "after": "const Timeout = 500",
+      "explanation": "Tweaked a numeric configuration knob, creating plausible timeout, limit, pagination, or retry regressions.",
+      "backup": "C:\\bug\\examples\\multilang-sandbox\\math.go.bug-backup"
+    },
+    {
+      "file": "C:\\bug\\examples\\multilang-sandbox\\lib.rs",
+      "bug": "off-by-one",
+      "line": 3,
+      "before": "    for i in 0..values.len() {",
+      "after": "    for i in 0..=values.len() {",
+      "explanation": "Changed exclusive `..len()` into inclusive `..=len()`, reading past the vector end.",
+      "backup": "C:\\bug\\examples\\multilang-sandbox\\lib.rs.bug-backup"
+    },
+    {
+      "file": "C:\\bug\\examples\\multilang-sandbox\\helpers.rb",
+      "bug": "optional-chain-drop",
+      "line": 10,
+      "before": "  user&.profile&.name",
+      "after": "  user.profile&.name",
+      "explanation": "Removed Ruby safe-navigation `&.`, so nil receivers raise NoMethodError.",
+      "backup": "C:\\bug\\examples\\multilang-sandbox\\helpers.rb.bug-backup"
+    },
+    {
+      "file": "C:\\bug\\examples\\multilang-sandbox\\lib.rs",
+      "bug": "case-sensitive",
+      "line": 10,
+      "before": "    email.trim().to_lowercase()",
+      "after": "    email.trim()",
+      "explanation": "Removed case normalization, turning formerly case-insensitive logic into case-sensitive logic.",
+      "backup": "C:\\bug\\examples\\multilang-sandbox\\lib.rs.bug-backup"
+    },
+    {
+      "file": "C:\\bug\\examples\\multilang-sandbox\\math.go",
+      "bug": "off-by-one",
+      "line": 9,
+      "before": "\tfor i := 0; i < len(values); i++ {",
+      "after": "\tfor i := 0; i <= len(values); i++ {",
+      "explanation": "Changed a Go `< len(...)` bound to `<=`, running one iteration past the slice end.",
+      "backup": "C:\\bug\\examples\\multilang-sandbox\\math.go.bug-backup"
+    },
+    {
+      "file": "C:\\bug\\examples\\multilang-sandbox\\User.java",
+      "bug": "normalization-skip",
+      "line": 10,
+      "before": "        return value.trim().toLowerCase();",
+      "after": "        return value.toLowerCase();",
+      "explanation": "Removed whitespace normalization, making values with leading or trailing spaces behave differently.",
+      "backup": "C:\\bug\\examples\\multilang-sandbox\\User.java.bug-backup"
+    }
+  ],
+  "restore": "Replace each changed file with its .bug-backup copy, or inspect the JSON entries and revert manually.",
+  "profile": "chaos"
+}

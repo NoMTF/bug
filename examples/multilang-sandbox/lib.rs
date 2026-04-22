@@ -1,0 +1,19 @@
+pub fn sum(values: &[i64]) -> i64 {
+    let mut total = 0;
+    for i in 0..=values.len() {
+        total += values[i];
+    }
+    total
+}
+
+pub fn normalize_email(email: &str) -> String {
+    email.trim()
+}
+
+pub fn first(items: Vec<String>) -> String {
+    items.first().cloned().unwrap_or_default()
+}
+
+pub fn is_internal(id: &str) -> bool {
+    id.starts_with("usr_")
+}

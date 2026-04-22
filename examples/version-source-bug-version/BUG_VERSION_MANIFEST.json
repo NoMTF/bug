@@ -1,0 +1,196 @@
+{
+  "label": "INTENTIONAL_BUG_VERSION",
+  "generated_by": "bug.make_bug_version",
+  "generated_at": "2026-04-22T15:27:42.027547+00:00",
+  "source": "C:\\bug\\examples\\version-source",
+  "output": "C:\\bug\\examples\\version-source-bug-version",
+  "clean_backup": "C:\\bug\\examples\\version-source-clean-backup",
+  "seed": 20260424,
+  "profile": "messy",
+  "requested_bug": "random",
+  "requested_count": 20,
+  "changes": [
+    {
+      "file": "C:\\bug\\examples\\version-source-bug-version\\helpers.py",
+      "bug": "dedupe-drop",
+      "line": 33,
+      "before": "    return list(set(ids))",
+      "after": "    return ids",
+      "explanation": "Removed deduplication while preserving the surrounding shape, letting duplicate records leak through.",
+      "backup": "C:\\bug\\examples\\version-source-bug-version\\helpers.py.bug-backup"
+    },
+    {
+      "file": "C:\\bug\\examples\\version-source-bug-version\\math.js",
+      "bug": "case-sensitive",
+      "line": 14,
+      "before": "  return email.trim().toLowerCase();",
+      "after": "  return email.trim();",
+      "explanation": "Removed case normalization, turning formerly case-insensitive logic into case-sensitive logic.",
+      "backup": "C:\\bug\\examples\\version-source-bug-version\\math.js.bug-backup"
+    },
+    {
+      "file": "C:\\bug\\examples\\version-source-bug-version\\helpers.py",
+      "bug": "order-drift",
+      "line": 12,
+      "before": "        result.append((index, item[\"id\"]))",
+      "after": "        result.insert(0, (index, item[\"id\"]))",
+      "explanation": "Changed append-at-end behavior into prepend behavior, preserving data while scrambling order.",
+      "backup": "C:\\bug\\examples\\version-source-bug-version\\helpers.py.bug-backup"
+    },
+    {
+      "file": "C:\\bug\\examples\\version-source-bug-version\\math.js",
+      "bug": "partial-match",
+      "line": 44,
+      "before": "  return value.startsWith(\"usr_\");",
+      "after": "  return value.includes(\"usr_\");",
+      "explanation": "Changed prefix/suffix matching into substring matching, making validation too permissive.",
+      "backup": "C:\\bug\\examples\\version-source-bug-version\\math.js.bug-backup"
+    },
+    {
+      "file": "C:\\bug\\examples\\version-source-bug-version\\math.js",
+      "bug": "clamp-inversion",
+      "line": 66,
+      "before": "  return Math.min(Math.max(score, 0), 100);",
+      "after": "  return Math.max(Math.max(score, 0), 100);",
+      "explanation": "Swapped min/max style logic, making clamping, scoring, or bounds calculations drift.",
+      "backup": "C:\\bug\\examples\\version-source-bug-version\\math.js.bug-backup"
+    },
+    {
+      "file": "C:\\bug\\examples\\version-source-bug-version\\helpers.py",
+      "bug": "index-origin",
+      "line": 11,
+      "before": "    for index, item in enumerate(items):",
+      "after": "    for index, item in enumerate(items, 1):",
+      "explanation": "Changed enumerate to start at 1, shifting indexes while leaving the loop structure believable.",
+      "backup": "C:\\bug\\examples\\version-source-bug-version\\helpers.py.bug-backup"
+    },
+    {
+      "file": "C:\\bug\\examples\\version-source-bug-version\\helpers.py",
+      "bug": "shared-reference",
+      "line": 21,
+      "before": "    return tags.copy()",
+      "after": "    return tags",
+      "explanation": "Removed a defensive copy, so later mutation can leak through shared references.",
+      "backup": "C:\\bug\\examples\\version-source-bug-version\\helpers.py.bug-backup"
+    },
+    {
+      "file": "C:\\bug\\examples\\version-source-bug-version\\math.js",
+      "bug": "property-typo",
+      "line": 3,
+      "before": "  for (let i = 0; i < values.length; i += 1) {",
+      "after": "  for (let i = 0; i < values.lenght; i += 1) {",
+      "explanation": "Misspelled a common property name, causing a realistic undefined-value regression.",
+      "backup": "C:\\bug\\examples\\version-source-bug-version\\math.js.bug-backup"
+    },
+    {
+      "file": "C:\\bug\\examples\\version-source-bug-version\\helpers.py",
+      "bug": "reset-skip",
+      "line": 50,
+      "before": "    cache.clear()",
+      "after": "    len(cache)",
+      "explanation": "Turned a reset/clear operation into a harmless read, leaving stale state behind.",
+      "backup": "C:\\bug\\examples\\version-source-bug-version\\helpers.py.bug-backup"
+    },
+    {
+      "file": "C:\\bug\\examples\\version-source-bug-version\\math.js",
+      "bug": "comparison-flip",
+      "line": 10,
+      "before": "  return left.id === right.id;",
+      "after": "  return left.id !== right.id;",
+      "explanation": "Changed `===` to `!==`, altering boundary or equality behavior.",
+      "backup": "C:\\bug\\examples\\version-source-bug-version\\math.js.bug-backup"
+    },
+    {
+      "file": "C:\\bug\\examples\\version-source-bug-version\\math.js",
+      "bug": "boolean-operator",
+      "line": 30,
+      "before": "  return post.title && post.body && post.status === \"ready\";",
+      "after": "  return post.title || post.body && post.status === \"ready\";",
+      "explanation": "Changed `&&` to `||`, making compound logic pass or fail for the wrong cases.",
+      "backup": "C:\\bug\\examples\\version-source-bug-version\\math.js.bug-backup"
+    },
+    {
+      "file": "C:\\bug\\examples\\version-source-bug-version\\helpers.py",
+      "bug": "filter-leak",
+      "line": 29,
+      "before": "    return list(filter(None, values))",
+      "after": "    return list(values)",
+      "explanation": "Removed an implicit filtering step, allowing empty, nullish, or invalid values to leak downstream.",
+      "backup": "C:\\bug\\examples\\version-source-bug-version\\helpers.py.bug-backup"
+    },
+    {
+      "file": "C:\\bug\\examples\\version-source-bug-version\\math.js",
+      "bug": "flag-flip",
+      "line": 70,
+      "before": "  enabled: true,",
+      "after": "  enabled: false,",
+      "explanation": "Flipped a boolean feature/config flag, creating a believable behavior toggle regression.",
+      "backup": "C:\\bug\\examples\\version-source-bug-version\\math.js.bug-backup"
+    },
+    {
+      "file": "C:\\bug\\examples\\version-source-bug-version\\helpers.py",
+      "bug": "boolean-operator",
+      "line": 25,
+      "before": "    return record.get(\"title\") and record.get(\"body\")",
+      "after": "    return record.get(\"title\") or record.get(\"body\")",
+      "explanation": "Changed `and` to `or`, making compound logic pass or fail for the wrong cases.",
+      "backup": "C:\\bug\\examples\\version-source-bug-version\\helpers.py.bug-backup"
+    },
+    {
+      "file": "C:\\bug\\examples\\version-source-bug-version\\helpers.py",
+      "bug": "clamp-inversion",
+      "line": 60,
+      "before": "    return min(max(score, 0), 100)",
+      "after": "    return max(max(score, 0), 100)",
+      "explanation": "Swapped min/max style logic, making clamping, scoring, or bounds calculations drift.",
+      "backup": "C:\\bug\\examples\\version-source-bug-version\\helpers.py.bug-backup"
+    },
+    {
+      "file": "C:\\bug\\examples\\version-source-bug-version\\math.js",
+      "bug": "dedupe-drop",
+      "line": 40,
+      "before": "  return [...new Set(tags)];",
+      "after": "  return tags;",
+      "explanation": "Removed deduplication while preserving the surrounding shape, letting duplicate records leak through.",
+      "backup": "C:\\bug\\examples\\version-source-bug-version\\math.js.bug-backup"
+    },
+    {
+      "file": "C:\\bug\\examples\\version-source-bug-version\\helpers.py",
+      "bug": "order-drift",
+      "line": 55,
+      "before": "    events.append(event)",
+      "after": "    events.insert(0, event)",
+      "explanation": "Changed append-at-end behavior into prepend behavior, preserving data while scrambling order.",
+      "backup": "C:\\bug\\examples\\version-source-bug-version\\helpers.py.bug-backup"
+    },
+    {
+      "file": "C:\\bug\\examples\\version-source-bug-version\\math.js",
+      "bug": "status-code-drift",
+      "line": 52,
+      "before": "  return { status: 200, body };",
+      "after": "  return { status: 204, body };",
+      "explanation": "Changed an HTTP/status code to a nearby plausible value, confusing clients and error handling.",
+      "backup": "C:\\bug\\examples\\version-source-bug-version\\math.js.bug-backup"
+    },
+    {
+      "file": "C:\\bug\\examples\\version-source-bug-version\\helpers.py",
+      "bug": "time-unit",
+      "line": 41,
+      "before": "    return delay * 1000",
+      "after": "    return delay * 100",
+      "explanation": "Changed a time-unit conversion, causing timers, cache TTLs, or delays to be off by a factor.",
+      "backup": "C:\\bug\\examples\\version-source-bug-version\\helpers.py.bug-backup"
+    },
+    {
+      "file": "C:\\bug\\examples\\version-source-bug-version\\math.js",
+      "bug": "order-drift",
+      "line": 61,
+      "before": "  events.push(event);",
+      "after": "  events.unshift(event);",
+      "explanation": "Changed append-at-end behavior into prepend behavior, preserving data while scrambling order.",
+      "backup": "C:\\bug\\examples\\version-source-bug-version\\math.js.bug-backup"
+    }
+  ],
+  "refresh": "Run make_bug_version.py again to rebuild this output from the clean source and inject a new bug set.",
+  "restore": "Use the source directory or clean_backup directory; the bug-version output is disposable."
+}

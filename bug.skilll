@@ -1,0 +1,116 @@
+#!/usr/bin/env bash
+# bug.skilll
+# skills.sh-style portable manifest for Codex, OpenClaw, and Claude Code.
+# This file is intentionally safe: it disables stealth sabotage and permits
+# only explicit bug drills and separate bug-version outputs. The bugs should be real.
+
+SKILL_NAME="bug"
+SKILL_VERSION="1.0.0"
+SKILL_TARGETS="codex,openclaw,claude-code"
+SKILL_ALLOW_IMPLICIT_INVOCATION="false"
+SKILL_DESCRIPTION="Create real bug-version outputs; never stealth sabotage."
+SKILL_TRIGGERS="bug version, bug drill, bug kata, intentional fixture, QA training, review challenge"
+
+bug_skill_print() {
+  cat <<'BUG_SKILL_EOF'
+# bug
+
+## Mission
+
+Create opt-in bug-hunt exercises and separate bug-version source trees for programming practice. The bug must be real: tests or runtime behavior should fail until the solver fixes it.
+
+## Non-Negotiable Rules
+
+1. Never silently add defects to the clean source tree.
+2. Never activate implicitly during normal programming tasks.
+3. Require explicit user intent for a bug version, bug drill, bug kata, review challenge, or QA training fixture.
+4. For arbitrary projects, copy the source and inject bugs only into the separate bug-version output.
+5. Label the output with INTENTIONAL_BUG_VERSION or INTENTIONAL_BUG_DRILL in manifests, docs, metadata, test names, or an adjacent answer key.
+6. Refuse or safely transform requests for hidden sabotage, automatic degradation, credential exposure, data loss, security weakening, or production-impacting breakage.
+7. Do not fake the bug. If invoked, mutate the bug-version copy, mutate sandbox code, create a failing test, or generate a kata that genuinely breaks.
+
+## Allowed Targets
+
+- separate bug-version output directories
+- training/
+- katas/
+- examples/
+- tests/fixtures/
+- temporary throwaway projects
+- explicitly named sandbox branches or directories
+
+## Disallowed Targets
+
+- production application paths
+- authentication, authorization, billing, deployment, migration, data deletion, or security-sensitive code
+- CI release logic
+- package publishing or dependency supply-chain files
+- anything the user did not explicitly designate as a drill target
+
+## Drill Workflow
+
+1. Prefer separate bug-version mode for arbitrary projects.
+2. Run scripts/make_bug_version.py against the clean source, usually with --profile messy and a multi-bug count such as --count 12.
+3. Use scripts/inject_bug.py only for explicit sandbox in-place mutation.
+4. Pick 1-3 educational bug patterns.
+5. Create or mutate a small defective sample.
+6. Add a failing test or clear reproduction step.
+7. Add an answer key with root cause, impact, and minimal fix.
+
+## Injector
+
+Use:
+
+python scripts/make_bug_version.py my-project --profile messy --count 12
+python scripts/make_bug_version.py my-project --profile soft --count 12
+python scripts/make_bug_version.py my-project --profile chaos --count 30
+python scripts/make_bug_version.py my-project --out my-project-bug-version --bug missing-await
+python scripts/inject_bug.py training/bug-kata-001 --count 2
+python scripts/inject_bug.py sandbox/demo --bug missing-await
+
+make_bug_version.py does not require a sandbox source because it copies source first and mutates only the bug-version output.
+inject_bug.py only accepts sandbox-like paths or directories containing .bug-sandbox. Keep this gate for in-place mutation.
+
+For "unnoticeable" entertainment drills, hide spoilers from the solver-facing source, not from the project owner. Store explanations in ANSWER.md or the injector JSON report.
+
+## Bug Patterns
+
+- off-by-one boundary error
+- boolean operator drift
+- falsy default regression
+- skipped whitespace or case normalization
+- stale state or shared mutable default
+- missing await in async flow
+- null, empty input, or type coercion surprise
+- optional chaining removal
+- slice start shift
+- sort direction reversal
+- shared reference leak
+- numeric config drift
+- filter leak
+- dedupe drop
+- partial match regression
+- rounding drift
+- status code drift
+- reset skip
+- order drift
+- flag flip
+- timezone or locale drift
+- ignored pagination or retry condition
+- flaky test fixture or over-broad mock
+- UI disabled/loading state mismatch
+
+## Response Template
+
+Exercise:
+Files changed:
+How to reproduce:
+Expected failure:
+Answer key:
+
+BUG_SKILL_EOF
+}
+
+if [[ "${BASH_SOURCE[0]}" == "$0" ]]; then
+  bug_skill_print
+fi

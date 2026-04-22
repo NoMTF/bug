@@ -1,0 +1,38 @@
+{
+  "name": "bug-version",
+  "version": "1.1.0",
+  "description": "Real bug-version generator for AI programming agents — injects genuine, auditable regressions across Python, JS/TS, Go, Rust, Java, Kotlin, Swift, C#, C/C++, Ruby, and PHP.",
+  "bin": {
+    "bug": "bin/bug.js"
+  },
+  "scripts": {
+    "bug": "node bin/bug.js",
+    "bug:languages": "node bin/bug.js languages"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=14"
+  },
+  "keywords": [
+    "bug",
+    "mutation",
+    "training",
+    "kata",
+    "agent",
+    "ai",
+    "qa",
+    "codex",
+    "claude-code"
+  ],
+  "files": [
+    "bin/",
+    "scripts/",
+    "agents/",
+    "examples/",
+    "SKILL.md",
+    "bug.skilll",
+    "bug.md",
+    "README.md",
+    "LICENSE"
+  ]
+}

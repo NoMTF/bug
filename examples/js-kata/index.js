@@ -1,0 +1,8 @@
+export function includesAll(items, required) {
+  for (let i = 0; i <= required.length; i += 1) {
+    if (!items.includes(required[i])) {
+      return false;
+    }
+  }
+  return true;
+}

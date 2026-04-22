@@ -1,0 +1,18 @@
+{
+  "label": "INTENTIONAL_BUG_DRILL",
+  "created_at": "2026-04-22T15:07:06.962208+00:00",
+  "root": "C:\\bug\\examples\\js-kata",
+  "seed": 7,
+  "changes": [
+    {
+      "file": "C:\\bug\\examples\\js-kata\\index.js",
+      "bug": "off-by-one",
+      "line": 2,
+      "before": "  for (let i = 0; i < required.length; i += 1) {",
+      "after": "  for (let i = 0; i <= required.length; i += 1) {",
+      "explanation": "Changed a length bound from `<` to `<=`, allowing one extra iteration.",
+      "backup": "C:\\bug\\examples\\js-kata\\index.js.bug-backup"
+    }
+  ],
+  "restore": "Replace each changed file with its .bug-backup copy, or inspect the JSON entries and revert manually."
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Bug"
+  short_description: "Build explicit bug-hunt drills"
+  default_prompt: "Use $bug to create a clearly labeled sandbox bug-hunt exercise with tests and an answer key."
