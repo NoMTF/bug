@@ -15,6 +15,14 @@
 </p>
 
 <p align="center">
+  <strong>一键安装：</strong>
+</p>
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/NoMTF/bug/main/install.sh | bash
+```
+
+<p align="center">
   <a href="#快速开始">快速开始</a>
   |
   <a href="#两种模式">两种模式</a>
